@@ -1,9 +1,11 @@
 --Joins 
-select a.*, b.Mortality_date from PATIENT a join MORT b
+select a.*, b.Mortality_date 
+from PATIENT a join MORT b
 on a.Pid = b.Pid;
 
 
-select a.*, b.Mortality_date from PATIENT a LEFT join MORT b
+select a.*, b.Mortality_date 
+from PATIENT a LEFT join MORT b
 on a.Pid = b.Pid;
 
 --Case when
