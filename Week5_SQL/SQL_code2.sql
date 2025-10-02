@@ -10,8 +10,7 @@ on a.Pid = b.Pid;
 
 --Case when
 
-select *, 
-case when pri_dx_icd = 'I50.9' or sec_dx_icd = ‘I50.9' THEN 1 ELSE 0 end as Heart_failure
+select *, case when pri_dx_icd = 'I50.9' or sec_dx_icd = ‘I50.9' THEN 1 ELSE 0 end as Heart_failure
 from VISIT;
 
 --Count
