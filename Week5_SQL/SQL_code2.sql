@@ -29,3 +29,27 @@ order by 2 desc;
 select a.*, ROUND((julianday(Visit_date) - julianday(Bdate)) / 365.25,2) as AGE_YEAR
 FROM VISIT a join PATIENT b
 on a.Pid = b.Pid;
+
+
+
+--The activity in the class
+--This is one way to answer it using Common Table Expression (CTE), basically creating temp tables in the session
+WITH visits_N AS (
+  SELECT Attending_md, COUNT(*) AS N_visits
+  FROM VISIT
+  GROUP BY Attending_md
+),
+Medications_N AS (
+  SELECT prescribing_md, COUNT(*) AS N_drugs
+  FROM MEDICATIONS
+  GROUP BY prescribing_md
+),
+Labs_N AS (
+  SELECT ordering_md, COUNT(*) AS N_labs
+  FROM LABS
+  GROUP BY ordering_md
+)
+SELECT a.Attending_md, a.N_visits, b.N_drugs, c.N_labs
+FROM Visits_N a 
+JOIN Medications_N b ON a.Attending_md = b.Prescribing_md
+JOIN Labs_N c ON a.Attending_md = c.Ordering_md;
