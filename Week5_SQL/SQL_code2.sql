@@ -10,22 +10,22 @@ on a.Pid = b.Pid;
 
 --Case when
 
-select a.*, 
-  case when pri_dx_icd = 'I50.9' or sec_dx_icd = ‘I50.9' THEN 1 ELSE 0 end as Heart_failure
-from VISIT a;
+select *, 
+case when pri_dx_icd = 'I50.9' or sec_dx_icd = 'I50.9' THEN 1 ELSE 0 end as Heart_failure
+from VISIT;
 
-/*-- Count */
-/* -- Count(*) */
+--Count
+--Count(*)
 select count(*) from MEDICATION;
 
 -- Count(distinct)
 select count(DISTINCT rx_name) from MEDICATIONS;
 
--- Group by (and order by)
+--Group by (and order by)
 select pid, count(DISTINCT rx_name) from MEDICATIONS GROUP by pid
 order by 2 desc;
 
--- Date calculations
+--Date calculations
 select a.*, ROUND((julianday(Visit_date) - julianday(Bdate)) / 365.25,2) as AGE_YEAR
 FROM VISIT a join PATIENT b
 on a.Pid = b.Pid;
