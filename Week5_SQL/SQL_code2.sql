@@ -12,15 +12,13 @@ select *,
 case when pri_dx_icd = 'I50.9' or sec_dx_icd = ‘I50.9' THEN 1 ELSE 0 end as Heart_failure
 from VISIT
 
---Mathematical operation: Addition 
+--Count
+--Count(*)
+select count(*) from MEDICATION;
 
---"With" acts like creating a new table but that’s temporary, it’s also called CTE (Common Table Expression)
-With test_table as(
-select *, 
-case when pri_dx_icd = 'I50.9' or sec_dx_icd = 'I50.9' then 1 else 0 end as Heart_failure,
-case when pri_dx_icd = 'I10' or sec_dx_icd = 'I10' then 1 else 0 end as Hypertension,
-case when pri_dx_icd = 'I20.9' or sec_dx_icd = 'I20.9' then 1 else 0 end as Angina
-from VISIT
-  )
-select *, Heart_failure + Hypertension + Angina as N_Cardiac_diagnoses from test_table;
+--Count(distinct)
+select count(DISTINCT rx_name) from MEDICATIONS;
 
+--Group by (and order by)
+select pid, count(DISTINCT rx_name) from MEDICATIONS GROUP by pid
+order by 2 desc;
